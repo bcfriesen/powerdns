@@ -1,0 +1,18 @@
+[Container]
+ContainerName=pdns-recursor
+#Image=docker.io/powerdns/pdns-recursor-45:latest
+Image=localhost/pdns-recursor:0.1
+Exec=pdns_recursor --config-dir=/etc/pdns-recursor --daemon=no --write-pid=no --disable-syslog --log-timestamp=no --socket-dir=/var/run/pdns
+Network=host
+#User=pdns-recursor
+LogDriver=journald
+PodmanArgs=--cap-add=NET_BIND_SERVICE
+Volume=/etc/pdns-recursor/recursor.conf:/etc/pdns-recursor/recursor.conf:ro
+Volume=/tmp:/var/run/pdns
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,6 @@
+FROM almalinux:9.5
+
+RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+RUN curl -o /etc/yum.repos.d/powerdns-auth-49.repo https://repo.powerdns.com/repo-files/el-auth-49.repo
+RUN dnf -y install pdns pdns-backend-sqlite sqlite
+COPY pdns.conf /etc/pdns/pdns.conf
